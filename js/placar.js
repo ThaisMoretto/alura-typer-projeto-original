@@ -1,3 +1,5 @@
+$("#botao-placar").click(mostraPlacar);
+
 function inserePlacar() {
     var corpoTabela = $(".placar").find("tbody");
     var usuario = "Thais";
@@ -7,6 +9,16 @@ function inserePlacar() {
     linha.find(".botao-remover").click(removeLinha);
     
     corpoTabela.append(linha);
+    $(".placar").slideDown(500);
+    scrollPlacar();
+}
+
+function scrollPlacar() {
+    var posicaoPlacar = $(".placar").offset().top;
+    $(".body").animate(
+    {
+        scrollTop: scrollPlacar+"px"
+    }, 1000);
 }
 
 function novaLinha(usuario, palavras) {
@@ -34,5 +46,14 @@ function novaLinha(usuario, palavras) {
 
 function removeLinha(event) {
     event.preventDefault();
-    $(this).parent().parent().remove();
+
+    var linha = $(this).parent().parent();
+    linha.fadeOut();
+    setTimeout(function() {
+        linha.remove();
+    }, 1000);
+}
+
+function mostraPlacar() {
+    $(".placar").stop().slideToggle(600);
 }
